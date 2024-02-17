@@ -1,7 +1,7 @@
-package arun.pkg.chatgpt.domain.usecase
+package arun.pkg.chatgpt.domain.chat.usecase
 
 import arun.pkg.chatgpt.domain.ChatGPTRepository
-import arun.pkg.chatgpt.domain.ChatMessages
+import arun.pkg.chatgpt.domain.chat.ChatMessages
 import javax.inject.Inject
 
 class SendChatMessage @Inject constructor(

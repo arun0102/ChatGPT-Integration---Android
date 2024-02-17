@@ -1,4 +1,4 @@
-package arun.pkg.chatgpt.data.model
+package arun.pkg.chatgpt.data.model.chat
 
 import com.google.gson.annotations.SerializedName
 

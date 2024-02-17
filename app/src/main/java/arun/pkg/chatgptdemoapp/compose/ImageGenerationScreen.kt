@@ -4,12 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -20,32 +17,40 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import arun.pkg.chatgpt.domain.chat.ChatMessages
 import arun.pkg.chatgptdemoapp.viewmodel.ChatGPTViewModel
+import coil.compose.AsyncImage
 
 @Composable
-fun ChatGPTScreen(
+@Preview
+private fun PreviewImageGenerationScreen() {
+    ImageGenerationScreen()
+}
+
+@Composable
+fun ImageGenerationScreen(
     viewModel: ChatGPTViewModel = hiltViewModel()
 ) {
-    var searchText by remember { mutableStateOf("Hello") }
-    val chatList: List<ChatMessages> by viewModel.messagesList.observeAsState(emptyList())
+    var searchText by remember { mutableStateOf("Flower image") }
+    val searchedImageUrl: String? by viewModel.imageSearchResult.observeAsState()
 
-    Column(modifier = Modifier.background(
-        Color.White,
-        shape = RoundedCornerShape(4.dp)
-    )) {
-        InputView(
+
+    Column(
+        modifier = Modifier.background(
+            Color.White,
+            shape = RoundedCornerShape(4.dp)
+        )
+    ) {
+        ImageSearchView(
             searchText = searchText,
             textChanged = {
                 searchText = it
-            }, sendMessage = {
-                viewModel.userChatMessage(it)
+            }, generateImage = {
+                viewModel.generateImage(it)
                 searchText = ""
             }, clearChat = {
                 viewModel.clearChat()
@@ -53,24 +58,15 @@ fun ChatGPTScreen(
 
         Spacer(modifier = Modifier.size(16.dp))
 
-        MessageList(messages = chatList)
+        ImageResult(url = searchedImageUrl)
     }
 }
 
-@Preview
 @Composable
-fun PreviewInputView() {
-    val messages = mutableListOf<ChatMessages>()
-    messages.add(ChatMessages("user", "Hello"))
-    messages.add(ChatMessages("assistant", "How can I help?"))
-    MessageList(messages)
-}
-
-@Composable
-fun InputView(
+fun ImageSearchView(
     searchText: String,
     textChanged: (String) -> Unit = {},
-    sendMessage: (String) -> Unit = {},
+    generateImage: (String) -> Unit = {},
     clearChat: () -> Unit = {}
 ) {
     Column {
@@ -81,7 +77,7 @@ fun InputView(
 
         Row {
             Button(onClick = {
-                sendMessage(searchText)
+                generateImage(searchText)
             }) {
                 Text(text = "Send")
             }
@@ -96,26 +92,13 @@ fun InputView(
 }
 
 @Composable
-fun MessageList(messages: List<ChatMessages>) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth()
-    ) {
-        items(messages) { message ->
-            MessageRow(message = message)
-        }
-    }
-}
-
-@Composable
-fun MessageRow(message: ChatMessages) {
+fun ImageResult(url: String?) {
     Column(modifier = Modifier.padding(4.dp)) {
-        if (message.role == "user")
-            Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.End) {
-                Text(text = message.content)
-            } else {
-            Text(text = message.content)
+        url?.let {
+            AsyncImage(
+                model = url,
+                contentDescription = "Image from ChatGPT"
+            )
         }
     }
 }

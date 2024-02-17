@@ -1,10 +1,12 @@
 package arun.pkg.chatgpt.data
 
-import arun.pkg.chatgpt.data.model.ChatMessageRequest
-import arun.pkg.chatgpt.data.model.Message
+import arun.pkg.chatgpt.data.model.chat.ChatMessageRequest
+import arun.pkg.chatgpt.data.model.chat.Message
+import arun.pkg.chatgpt.data.model.image_generation.ImageGenerationRequest
 import arun.pkg.chatgpt.data.service.ChatGPTServices
 import arun.pkg.chatgpt.domain.ChatGPTRepository
-import arun.pkg.chatgpt.domain.ChatMessages
+import arun.pkg.chatgpt.domain.chat.ChatMessages
+import arun.pkg.chatgpt.domain.image_generation.ImageResponse
 
 class ChatGPTRepositoryImpl(
     private val chatGPTServices: ChatGPTServices
@@ -32,7 +34,16 @@ class ChatGPTRepositoryImpl(
 
     }
 
-    override suspend fun clearChat() {
+    override suspend fun sendImageGenerationRequest(searchText: String): String {
+        val result = chatGPTServices.imageGenerationRequest(
+            ImageGenerationRequest(
+                prompt = searchText
+            )
+        )
+        return result.data[0].url
+    }
+
+    override suspend fun clear() {
         chatMessagesList.clear()
     }
 }

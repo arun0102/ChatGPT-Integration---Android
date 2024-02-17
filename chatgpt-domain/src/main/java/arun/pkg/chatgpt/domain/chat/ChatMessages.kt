@@ -1,4 +1,4 @@
-package arun.pkg.chatgpt.domain
+package arun.pkg.chatgpt.domain.chat
 
 data class ChatMessages(
     val role: String,

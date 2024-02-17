@@ -1,5 +1,5 @@
 [versions]
-agp = "8.4.0-alpha01"
+agp = "8.4.0-alpha09"
 kotlin = "1.9.0"
 coreKtx = "1.12.0"
 fragmentKtx = "1.6.2"
@@ -8,15 +8,15 @@ junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
-composeBom = "2024.01.00"
-navigationRuntimeKtx = "2.7.6"
-navigationCompose = "2.7.6"
-navigationFragmentKtx = "2.7.6"
+composeBom = "2024.02.00"
+navigationRuntimeKtx = "2.7.7"
+navigationCompose = "2.7.7"
+navigationFragmentKtx = "2.7.7"
 appcompat = "1.6.1"
 jetbrainsKotlinJvm = "1.9.0"
 material = "1.11.0"
 hilt = "1.1.0"
-dagger = "2.49"
+dagger = "2.50"
 daggerHilt = "2.49"
 javaPoet = "1.13.0"
 javax = "1"
@@ -24,7 +24,8 @@ retrofit = "2.9.0"
 gson = "2.9.0"
 okhttp = "4.12.0"
 secretsGradlePlugin = "2.0.1"
-composeLiveData = "1.6.0"
+composeLiveData = "1.6.1"
+coil = "2.5.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -59,6 +60,7 @@ okhttp = { group = "com.squareup.okhttp3", name = "logging-interceptor", version
 android-tools-gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 secrets-gradle-plugin = { module = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin", version.ref = "secretsGradlePlugin" }
 compose-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "composeLiveData" }
+coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
 
 

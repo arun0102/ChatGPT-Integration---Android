@@ -1,4 +1,4 @@
-package arun.pkg.chatgpt.data.model
+package arun.pkg.chatgpt.data.model.chat
 
 data class ChatMessageRequest(
     val model: String = "gpt-3.5-turbo",
