@@ -10,4 +10,6 @@ data class ImageGenerationResponse(
 data class Data(
     @SerializedName("url")
     val url: String,
+    @SerializedName("revised_prompt")
+    val revisedPrompt: String,
 )

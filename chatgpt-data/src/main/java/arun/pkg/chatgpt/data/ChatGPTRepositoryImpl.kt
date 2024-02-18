@@ -34,13 +34,14 @@ class ChatGPTRepositoryImpl(
 
     }
 
-    override suspend fun sendImageGenerationRequest(searchText: String): String {
+    override suspend fun sendImageGenerationRequest(searchText: String, size: String): ImageResponse {
         val result = chatGPTServices.imageGenerationRequest(
             ImageGenerationRequest(
-                prompt = searchText
+                prompt = searchText,
+                size = size
             )
         )
-        return result.data[0].url
+        return ImageResponse(result.data[0].url, result.data[0].revisedPrompt)
     }
 
     override suspend fun clear() {
