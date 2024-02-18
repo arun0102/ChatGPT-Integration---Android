@@ -20,11 +20,26 @@ import arun.pkg.chatgptdemoapp.navigation.Navigation
 @Composable
 @Preview
 private fun PreviewMainScreen() {
-    //MainScreen()
+    MainScreenView()
 }
 
 @Composable
 fun MainScreen(navController: NavController) {
+    MainScreenView(
+        onChatClicked = {
+            navController.navigate(Navigation.Route.ROUTE_CHAT_SCREEN)
+        },
+        onImageGenerationClicked = {
+            navController.navigate(Navigation.Route.ROUTE_IMAGES_SCREEN)
+        }
+    )
+}
+
+@Composable
+private fun MainScreenView(
+    onChatClicked: () -> Unit = {},
+    onImageGenerationClicked: () -> Unit = {},
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -35,14 +50,14 @@ fun MainScreen(navController: NavController) {
             .padding(20.dp)
     ) {
         Button(onClick = {
-            navController.navigate(Navigation.Route.ROUTE_CHAT_SCREEN)
+            onChatClicked()
         }) {
             Text(text = "Chat")
         }
         Spacer(modifier = Modifier.padding(16.dp))
 
         Button(onClick = {
-            navController.navigate(Navigation.Route.ROUTE_IMAGES_SCREEN)
+            onImageGenerationClicked()
         }) {
             Text(text = "Generate Images")
         }
@@ -51,14 +66,14 @@ fun MainScreen(navController: NavController) {
         Button(onClick = {
 
         }) {
-            Text(text = "Text to Speech")
+            Text(text = "Text to Speech (In-progress)")
         }
         Spacer(modifier = Modifier.padding(16.dp))
 
         Button(onClick = {
 
         }) {
-            Text(text = "Read Image")
+            Text(text = "Read Image (In-progress)")
         }
         Spacer(modifier = Modifier.padding(16.dp))
     }
