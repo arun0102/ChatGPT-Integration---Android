@@ -5,14 +5,8 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
     alias(libs.plugins.jetbrainsKotlinJvm) apply false
     alias(libs.plugins.androidLibrary) apply false
+    alias(libs.plugins.secrets.gradle.plugin) apply false
     alias(libs.plugins.jetbrains.kotlin.kapt) apply false
-}
-
-buildscript {
-    dependencies {
-        classpath(libs.android.tools.gradle)
-        classpath(libs.secrets.gradle.plugin)
-    }
 }
 
 
